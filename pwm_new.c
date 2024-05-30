@@ -1,0 +1,25 @@
+#include<LPC214x.h> 
+
+int main()
+{
+	int i=0;
+	PINSEL0 = PINSEL0 | (2<<16); //CH4 (P0.8)
+	PINSEL1 = PINSEL1 | (1<<10); //CH5 (P0.21)
+	IO0DIR = IO0DIR | (1<<21) | (1<<8); //PO.21 (PWM5), PO.8 (PWM4) O/P
+	PWMPCR = PWMPCR | (1<<4) | (1<<12) | (1<<13); //PWM5 SGL EDG,PWM4 DBLE EDG, PWM 4 & 5 ENABLED
+	PWMLER = 0X00;
+	PWMMCR = 0X00000002; //RESET COUNTER WHEN MATCH0
+	PWMPR = 0X00000000; //PWM CLK = PCLK/(0+1) = 15 MHz
+	PWMPC = 0X00000000;
+	PWMTC = 0X00000000;
+	PWMMR0 = 100;
+	PWMMR3 = 53; //rising
+	PWMMR4 = 27; //falling
+	PWMMR5 = 65;
+	PWMTCR =0X09; //ENABLE COUNTER & PWM MODE
+	while(1)
+		{
+		i++;
+ }
+	return 0;
+}
